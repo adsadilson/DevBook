@@ -7,3 +7,6 @@ github.com/gorilla/mux
 # github.com/joho/godotenv v1.4.0
 ## explicit; go 1.12
 github.com/joho/godotenv
+# github.com/kisielk/sqlstruct v0.0.0-20210630145711-dae28ed37023
+## explicit
+github.com/kisielk/sqlstruct

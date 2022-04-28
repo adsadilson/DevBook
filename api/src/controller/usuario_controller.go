@@ -2,7 +2,7 @@ package controller
 
 import (
 	"api/src/models"
-	"api/src/repository"
+	"api/src/services"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -10,23 +10,27 @@ import (
 	"net/http"
 )
 
-func CriarUsuario(w http.ResponseWriter, r *http.Request) {
+func Salvar(w http.ResponseWriter, r *http.Request) {
+
 	corpoRequisicao, erro := ioutil.ReadAll(r.Body)
+
 	if erro != nil {
 		log.Fatal(erro)
 	}
 
 	var usuario models.Usuario
+
 	if erro = json.Unmarshal(corpoRequisicao, &usuario); erro != nil {
 		log.Fatal(erro)
 	}
 
-	repository := repository.NovaInstanciaUsuario()
-	usuarioID, erro := repository.Save(usuario)
+	id, erro := services.Save(usuario)
+
 	if erro != nil {
 		log.Fatal(erro)
 	}
-	w.Write([]byte(fmt.Sprintf("Usuário inserido com sucesso! ID: %d", usuarioID)))
+
+	w.Write([]byte(fmt.Sprintf("Usuário inserido com sucesso! ID: %d", id)))
 }
 
 func BuscarUsuarios(w http.ResponseWriter, r *http.Request) {
